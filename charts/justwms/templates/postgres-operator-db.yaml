@@ -1,4 +1,4 @@
-{{- if and (.Values.postgresql.enabled) (.Values.postgresql.mode == "operator") }}
+{{- if and (.Values.postgresql.enabled) (eq .Values.postgresql.mode "operator") }}
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
