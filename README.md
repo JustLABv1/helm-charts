@@ -8,7 +8,7 @@
 ## Get Repo Info
 
 ```console
-helm repo add v1flows https://v1flows.github.io/helm-charts
+helm repo add justlabv1 https://justlabv1.github.io/helm-charts
 helm repo update
 ```
 
@@ -19,7 +19,7 @@ _See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation
 To install the chart with the release name `my-release`:
 
 ```console
-helm install my-release v1flows/exflow
+helm install my-release justlabv1/exflow
 ```
 
 ## Uninstalling the Chart
