@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "justwms.fullname" . }}
+  labels:
+    {{- include "justwms.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.justwms.replicas }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "justwms.justwms.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "justwms.justwms.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- if .Values.postgresql.enabled }}
+      initContainers:
+        - name: wait-for
+          image: ghcr.io/patrickdappollonio/wait-for:latest
+          env:
+          - name: POSTGRES_HOST
+            value: "{{ .Values.justwms.configMap.data.database.server }}:{{ .Values.justwms.configMap.data.database.port }}"
+          command:
+            - /wait-for
+          args:
+            - --host="$(POSTGRES_HOST)"
+            - --verbose
+      {{- end }}
+      containers:
+        - name: justwms
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.justwms.repository }}:{{ .Values.justwms.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.justwms.pullPolicy }}
+          livenessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: {{ .Values.justwms.service.ports.backend.port }}
+          readinessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: {{ .Values.justwms.service.ports.backend.port }}
+          {{- if .Values.justwms.configMap.enabled }}
+          volumeMounts:
+            - name: backend-config
+              mountPath: /etc/justwms/config.yaml
+              subPath: config.yaml
+              readOnly: true
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.justwms.configMap.enabled }}
+      volumes:
+        - name: backend-config
+          configMap:
+            name: {{ include "justwms.fullname" . }}-config
+            items:
+              - key: config.yaml
+                path: config.yaml
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

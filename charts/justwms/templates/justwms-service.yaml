@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "justwms.fullname" . }}
+  labels:
+    {{- include "justwms.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.justwms.service.type }}
+  ports:
+    {{- if .Values.justwms.service.ports.frontend }}
+    - port: {{ .Values.justwms.service.ports.frontend.port }}
+      targetPort: {{ .Values.justwms.service.ports.frontend.targetPort }}
+      protocol: TCP
+      name: {{ .Values.justwms.service.ports.frontend.name }}
+    {{- end }}
+    {{- if .Values.justwms.service.ports.backend }}
+    - port: {{ .Values.justwms.service.ports.backend.port }}
+      targetPort: {{ .Values.justwms.service.ports.backend.targetPort }}
+      protocol: TCP
+      name: {{ .Values.justwms.service.ports.backend.name }}
+    {{- end }}
+  selector:
+    {{- include "justwms.justwms.selectorLabels" . | nindent 4 }}
