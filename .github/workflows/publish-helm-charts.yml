@@ -57,7 +57,7 @@ jobs:
             git fetch origin gh-pages
             git checkout gh-pages -- index.yaml || echo "No existing index.yaml found"
           fi
-          helm repo index packaged --url https://v1flows.github.io/helm-charts --merge index.yaml
+          helm repo index packaged --url https://justlabv1.github.io/helm-charts --merge index.yaml
           mv packaged/* .
 
       # Commit and push to gh-pages branch
