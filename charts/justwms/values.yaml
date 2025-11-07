@@ -31,6 +31,10 @@ justwms:
         port: 465
         user: mail@mail.de
         password: mail
+  persistence:
+    enabled: true
+    storageClassName: default
+    size: 10Gi
   service:
     name: justwms
     type: ClusterIP

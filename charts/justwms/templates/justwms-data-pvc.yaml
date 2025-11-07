@@ -1,0 +1,15 @@
+{{- if .Values.justwms.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "justwms.fullname" . }}-backend-data-volume-claim
+  labels:
+    {{- include "justwms.labels" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.justwms.persistence.storageClassName | default "default" }}
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.justwms.persistence.size | default "10Gi" }}
+{{- end }}
