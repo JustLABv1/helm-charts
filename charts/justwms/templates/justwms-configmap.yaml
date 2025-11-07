@@ -1,4 +1,4 @@
-{{- if .Values.justwms.configMap.enabled }}
+{{- if and (.Values.justwms.configMap.enabled) (.Values.justwms.configMap.deploy) }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
