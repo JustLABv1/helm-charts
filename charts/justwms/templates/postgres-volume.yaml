@@ -1,0 +1,16 @@
+{{- if and (.Values.postgresql.enabled) (.Values.postgresql.mode == "standalone") (.Values.postgresql.persistence.enabled) }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-volume
+  labels:
+    app: postgres
+spec:
+  storageClassName: {{ .Values.postgresql.persistence.storageClassName | default "default" }}
+  capacity:
+    storage: {{ .Values.postgresql.persistence.size | default "20Gi" }}
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /data/postgresql
+{{- end }}

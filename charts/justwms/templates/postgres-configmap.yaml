@@ -1,0 +1,12 @@
+{{- if and (.Values.postgresql.enabled) (.Values.postgresql.mode == "standalone") }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-secret
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: {{ .Values.postgresql.auth.database | default "justwms" }}
+  POSTGRES_USER: {{ .Values.postgresql.auth.username | default "justwms" }}
+  POSTGRES_PASSWORD: {{ .Values.postgresql.auth.password | default "justwms" }}
+{{- end }}

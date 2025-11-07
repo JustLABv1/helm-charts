@@ -1,0 +1,104 @@
+# Default values for justwms.
+
+justwms:
+  replicas: 1
+  repository: ghcr.io/justlabv1/justwms
+  pullPolicy: Always
+  tag: ""
+  configMap:
+    enabled: true
+    data:
+      log_level: info
+      port: 8080
+      database:
+        server: postgres.justwms.svc.cluster.local
+        port: 5432
+        name: justwms
+        user: justwms
+        password: justwms
+      jwt:
+        secret: secret
+      data_path: /app/data
+      lieferschein:
+        export_path: /app/data/lieferscheine
+      bestellungen:
+        auto_send_mail: true
+        mail_to:
+          - mail@mail.com
+      mailserver:
+        host: smtp.mail.org
+        port: 465
+        user: mail@mail.de
+        password: mail
+  service:
+    name: justwms
+    type: ClusterIP
+    ports:
+      frontend:
+        port: 3000
+        targetPort: 3000
+        name: frontend
+      backend:
+        port: 8080
+        targetPort: 8080
+        name: backend
+
+postgresql:
+  enabled: true
+  mode: standalone
+  replicas: 1
+  image: 'postgres:16'
+  pullPolicy: IfNotPresent
+  persistence:
+    enabled: true
+    storageClassName: default
+    size: 20Gi
+  auth:
+    database: "justwms"
+    password: "justwms"
+    username: "justwms"
+  operator:
+    clusterName: master-postgres
+  service:
+    type: ClusterIP
+    port: 5432
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+ingress:
+  enabled: false
+  ingressClassName: traefik
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  hosts:
+    - exflow.org
+    - www.exflow.org
+  tls:
+    - secretName: exflow-org-tls
+      hosts:
+        - exflow.org
+        - www.exflow.org
+
+resources:
+  requests: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 3
+  maxReplicas: 15
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
