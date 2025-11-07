@@ -3,7 +3,7 @@ entries:
   alertflow:
   - apiVersion: v2
     appVersion: v1.4.0
-    created: "2025-11-07T17:47:33.34235557Z"
+    created: "2025-11-07T17:50:48.746203875Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -12,7 +12,7 @@ entries:
       - database
       version: 16.5.0
     description: An AlertFlow Helm chart for Kubernetes
-    digest: d979ac67700b7a390b0fab6931033b9bf95959ffabd7176f508370a10a13f148
+    digest: 5a4728c48008d5a6c759afe09d592348a7a74bde217cdcbe2799a91526d776c6
     name: alertflow
     type: application
     urls:
@@ -21,9 +21,9 @@ entries:
   exflow:
   - apiVersion: v2
     appVersion: v1.5.2
-    created: "2025-11-07T17:47:33.343070264Z"
+    created: "2025-11-07T17:50:48.747296745Z"
     description: An exFlow Helm chart for Kubernetes
-    digest: 9b30b895547dcaa5e639fe18614e6a6aa20662b7af812c5ff3e702727a659a13
+    digest: 6b9886e3df6aaac01060639bb9b044e0b0559fe6028fd82fab082b66eea2fb68
     name: exflow
     type: application
     urls:
@@ -32,12 +32,12 @@ entries:
   justwms:
   - apiVersion: v2
     appVersion: v1.6.2
-    created: "2025-11-07T17:47:33.343534972Z"
+    created: "2025-11-07T17:50:48.747791136Z"
     description: An JustWMS Helm chart for Kubernetes
-    digest: deab123ff865f5f09fd0f3813b9a691be346c182c06db4bf92dd093a335c2b7f
+    digest: b70ea410c62d3d720d5dc1ec8144046ab8d1465a558bbd99ecc9aac455d48fd3
     name: justwms
     type: application
     urls:
-    - https://justlabv1.github.io/helm-charts/justwms-1.6.6.tgz
-    version: 1.6.6
-generated: "2025-11-07T17:47:33.335866866Z"
+    - https://justlabv1.github.io/helm-charts/justwms-1.6.7.tgz
+    version: 1.6.7
+generated: "2025-11-07T17:50:48.735488685Z"

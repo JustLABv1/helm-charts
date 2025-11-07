@@ -30,14 +30,14 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: {{ include "justwms.fullname" . }}
+                name: {{ $.Values.justwms.service.name }}
                 port:
                   number: {{ $.Values.justwms.service.ports.frontend.port }}
           - path: /api
             pathType: ImplementationSpecific
             backend:
               service:
-                name: {{ include "justwms.fullname" . }}
+                name: {{ $.Values.justwms.service.name }}
                 port:
                   number: {{ $.Values.justwms.service.ports.backend.port }}
     {{- end }}
