@@ -1,6 +1,6 @@
 # justwms
 
-![Version: 1.6.4](https://img.shields.io/badge/Version-1.6.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.6.2](https://img.shields.io/badge/AppVersion-v1.6.2-informational?style=flat-square)
+![Version: 1.6.5](https://img.shields.io/badge/Version-1.6.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.6.2](https://img.shields.io/badge/AppVersion-v1.6.2-informational?style=flat-square)
 
 An JustWMS Helm chart for Kubernetes
 
@@ -40,6 +40,7 @@ An JustWMS Helm chart for Kubernetes
 | justwms.configMap.data.mailserver.port | int | `465` |  |
 | justwms.configMap.data.mailserver.user | string | `"mail@mail.de"` |  |
 | justwms.configMap.data.port | int | `8080` |  |
+| justwms.configMap.deploy | bool | `true` |  |
 | justwms.configMap.enabled | bool | `true` |  |
 | justwms.pullPolicy | string | `"Always"` |  |
 | justwms.replicas | int | `1` |  |
