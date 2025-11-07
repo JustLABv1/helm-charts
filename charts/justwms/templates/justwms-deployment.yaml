@@ -55,6 +55,10 @@ spec:
               port: {{ .Values.justwms.service.ports.backend.port }}
           {{- if .Values.justwms.configMap.enabled }}
           volumeMounts:
+            {{- if .Values.justwms.persistence.enabled }}
+            - name: backend-data
+              mountPath: /app/data
+            {{- end }}
             - name: backend-config
               mountPath: /etc/justwms/config.yaml
               subPath: config.yaml
@@ -64,6 +68,11 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- if .Values.justwms.configMap.enabled }}
       volumes:
+        {{- if .Values.justwms.persistence.enabled }}
+        - name: backend-data
+          persistentVolumeClaim:
+            claimName: {{ include "justwms.fullname" . }}-backend-data-volume-claim
+        {{- end }}
         - name: backend-config
           configMap:
             name: {{ include "justwms.fullname" . }}-config
