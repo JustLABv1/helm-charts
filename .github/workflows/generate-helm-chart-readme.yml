@@ -11,7 +11,7 @@ on:
 jobs:
   generate-readme:
     runs-on: ubuntu-latest
-
+    permissions: write-all
     steps:
       # Step 1: Checkout the repository
       - name: Checkout repository
