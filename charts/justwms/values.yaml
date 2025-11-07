@@ -7,6 +7,7 @@ justwms:
   tag: ""
   configMap:
     enabled: true
+    deploy: true
     data:
       log_level: info
       port: 8080
