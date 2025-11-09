@@ -1,6 +1,6 @@
 # justwms
 
-![Version: 1.6.7](https://img.shields.io/badge/Version-1.6.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.6.2](https://img.shields.io/badge/AppVersion-v1.6.2-informational?style=flat-square)
+![Version: 1.6.8](https://img.shields.io/badge/Version-1.6.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.6.2](https://img.shields.io/badge/AppVersion-v1.6.2-informational?style=flat-square)
 
 An JustWMS Helm chart for Kubernetes
 
@@ -42,6 +42,9 @@ An JustWMS Helm chart for Kubernetes
 | justwms.configMap.data.port | int | `8080` |  |
 | justwms.configMap.deploy | bool | `true` |  |
 | justwms.configMap.enabled | bool | `true` |  |
+| justwms.persistence.enabled | bool | `true` |  |
+| justwms.persistence.size | string | `"10Gi"` |  |
+| justwms.persistence.storageClassName | string | `"default"` |  |
 | justwms.pullPolicy | string | `"Always"` |  |
 | justwms.replicas | int | `1` |  |
 | justwms.repository | string | `"ghcr.io/justlabv1/justwms"` |  |
