@@ -1,0 +1,12 @@
+{{- if and (.Values.postgresql.enabled) (eq .Values.postgresql.mode "operator") }}
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: {{ .Values.postgresql.auth.database | default "justflow" }}-db
+  namespace: postgres
+spec:
+  name: {{ .Values.postgresql.auth.database | default "justflow" }}
+  owner: {{ .Values.postgresql.auth.username | default "justflow" }}
+  cluster:
+    name: {{ .Values.postgresql.operator.clusterName | default "master-postgres" }}
+{{- end }}

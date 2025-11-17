@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "justflow.fullname" . }}
+  labels:
+    {{- include "justflow.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.justflow.replicas }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "justflow.justflow.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "justflow.justflow.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- if .Values.postgresql.enabled }}
+      initContainers:
+        - name: wait-for
+          image: ghcr.io/patrickdappollonio/wait-for:latest
+          env:
+          - name: POSTGRES_HOST
+            value: "{{ .Values.justflow.configMap.data.database.server }}:{{ .Values.justflow.configMap.data.database.port }}"
+          command:
+            - /wait-for
+          args:
+            - --host="$(POSTGRES_HOST)"
+            - --verbose
+      {{- end }}
+      containers:
+        - name: justflow
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.justflow.repository }}:{{ .Values.justflow.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.justflow.pullPolicy }}
+          livenessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: {{ .Values.justflow.service.ports.backend.port }}
+          readinessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: {{ .Values.justflow.service.ports.backend.port }}
+          {{- if .Values.justflow.configMap.enabled }}
+          volumeMounts:
+            {{- if .Values.justflow.configMap.enabled }}
+            - name: backend-config
+              mountPath: /etc/justflow/backend_config.yaml
+              subPath: backend_config.yaml
+              readOnly: true
+            {{- end }}
+            {{- if .Values.justflow.persistence.enabled }}
+            - name: justflow-data
+              mountPath: /etc/justflow
+            {{- end }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.justflow.configMap.enabled }}
+      volumes:
+        {{- if .Values.justflow.configMap.enabled }}
+        - name: backend-config
+          configMap:
+            name: {{ include "justflow.fullname" . }}-config
+            items:
+              - key: config.yaml
+                path: backend_config.yaml
+        {{- end }}
+        {{- if .Values.justflow.persistence.enabled }}
+        - name: justflow-data
+          persistentVolumeClaim:
+            claimName: justflow-data-volume-claim
+        {{- end }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

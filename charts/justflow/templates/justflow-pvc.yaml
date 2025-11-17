@@ -1,0 +1,15 @@
+{{- if .Values.justflow.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: justflow-data-volume
+  labels:
+    {{- include "justflow.labels" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.justflow.persistence.storageClassName | default "default" }}
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.justflow.persistence.size }}
+{{- end }}

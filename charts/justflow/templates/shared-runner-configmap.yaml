@@ -1,0 +1,11 @@
+{{- if .Values.sharedRunner.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ include "justflow.fullname" . }}-shared-runner-config"
+  labels:
+    {{- include "justflow.labels" . | nindent 4 }}
+data:
+  config.yaml: |-
+    {{- toYaml $.Values.sharedRunner.configMap.data | nindent 4 }}
+{{- end }}

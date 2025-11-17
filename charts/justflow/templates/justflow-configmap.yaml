@@ -1,0 +1,11 @@
+{{- if .Values.justflow.configMap.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ include "justflow.fullname" . }}-config"
+  labels:
+    {{- include "justflow.labels" . | nindent 4 }}
+data:
+  config.yaml: |-
+    {{- toYaml .Values.justflow.configMap.data | nindent 4 }}
+{{- end }}

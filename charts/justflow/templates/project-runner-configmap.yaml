@@ -1,0 +1,11 @@
+{{- if and (.Values.projectRunner.enabled) (.Values.projectRunner.configMap.enabled) }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ include "justflow.fullname" . }}-runner-config"
+  labels:
+    {{- include "justflow.labels" . | nindent 4 }}
+data:
+  config.yaml: |-
+    {{- toYaml $.Values.projectRunner.configMap.data | nindent 4 }}
+{{- end }}

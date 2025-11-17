@@ -1,0 +1,17 @@
+{{- if .Values.sharedRunner.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ include "justflow.fullname" . }}-{{ .Values.sharedRunner.service.name }}"
+  labels:
+    {{- include "justflow.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.sharedRunner.service.type }}
+  ports:
+    - port: {{ .Values.sharedRunner.service.port }}
+      targetPort: {{ .Values.sharedRunner.service.target_port }}
+      protocol: TCP
+      name: shared-runner
+  selector:
+    {{- include "justflow.sharedRunner.selectorLabels" . | nindent 4 }}
+{{- end }}

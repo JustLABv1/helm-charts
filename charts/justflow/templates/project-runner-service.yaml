@@ -1,0 +1,17 @@
+{{- if .Values.projectRunner.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ include "justflow.fullname" . }}-{{ .Values.projectRunner.service.name }}"
+  labels:
+    {{- include "justflow.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.projectRunner.service.type }}
+  ports:
+    - port: {{ .Values.projectRunner.service.port }}
+      targetPort: {{ .Values.projectRunner.service.target_port }}
+      protocol: TCP
+      name: justflow-runner
+  selector:
+    {{- include "justflow.projectRunner.selectorLabels" . | nindent 4 }}
+{{- end }}

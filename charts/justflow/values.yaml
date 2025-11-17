@@ -1,0 +1,180 @@
+# Default values for justflow.
+
+justflow:
+  replicas: 1
+  repository: ghcr.io/justlabv1/justflow
+  pullPolicy: Always
+  tag: ""
+  configMap:
+    enabled: false
+    data:
+      log_level: info
+      port: 8080
+      database:
+        server: postgres.justflow.svc.cluster.local
+        port: 5432
+        name: justflow
+        user: justflow
+        password: justflow
+      encryption:
+        enabled: true
+        # -- maximum length is 32 characters
+        key: key
+      jwt:
+        secret: secret
+      runner:
+        shared_runner_secret: secret
+  persistence:
+    enabled: true
+    storageClassName: default
+    size: 2Gi
+  service:
+    name: justflow
+    type: ClusterIP
+    ports:
+      frontend:
+        port: 3000
+        targetPort: 3000
+        name: frontend
+      backend:
+        port: 8080
+        targetPort: 8080
+        name: backend
+
+postgresql:
+  enabled: true
+  mode: standalone
+  replicas: 1
+  image: 'postgres:16'
+  pullPolicy: IfNotPresent
+  persistence:
+    enabled: true
+    storageClassName: default
+    size: 20Gi
+  auth:
+    database: "justflow"
+    password: "justflow"
+    username: "justflow"
+  operator:
+    clusterName: master-postgres
+  service:
+    type: ClusterIP
+    port: 5432
+
+projectRunner:
+  enabled: false
+  replicas: 2
+  repository: justnz/runner
+  pullPolicy: Always
+  tag: "latest"
+  persistence:
+    enabled: false
+    storageClassName: default
+    accessMode: ReadWriteMany
+    size: 5Gi
+  configMap:
+    enabled: true
+    data:
+      log_level: info
+      mode: master
+      alertflow:
+        enabled: false
+      justflow:
+        enabled: true
+        url: http://localhost:8080
+        # runner_id: 1234556789
+        # api_key: 1234567890
+      plugins:
+        - name: git
+          version: latest
+        - name: ansible
+          version: latest
+        - name: ssh
+          version: latest
+      api_endpoints:
+        port: 8080
+      runner:
+        shared_runner_secret: secret
+  service:
+    name: project-runner
+    type: ClusterIP
+    port: 8080
+    target_port: 8080
+
+sharedRunner:
+  enabled: false
+  replicas: 2
+  repository: justnz/runner
+  pullPolicy: Always
+  tag: "latest"
+  persistence:
+    enabled: false
+    storageClassName: default
+    accessMode: ReadWriteMany
+    size: 5Gi
+  configMap:
+    enabled: true
+    data:
+      log_level: info
+      mode: master
+      alertflow:
+        enabled: false
+      exflow:
+        enabled: true
+        url: http://localhost:8080
+        # runner_id: 1234556789
+        # api_key: 1234567890
+      plugins:
+        - name: git
+          version: latest
+        - name: ansible
+          version: latest
+        - name: ssh
+          version: latest
+      api_endpoints:
+        port: 8080
+      runner:
+        shared_runner_secret: secret
+  service:
+    name: shared-runner
+    type: ClusterIP
+    port: 8080
+    target_port: 8080
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+ingress:
+  enabled: false
+  ingressClassName: traefik
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  hosts:
+    - myhost.org
+  tls:
+    - secretName: myhost-tls
+      hosts:
+        - myhost.org
+
+resources:
+  requests: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 3
+  maxReplicas: 15
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
