@@ -1,0 +1,15 @@
+{{- if and (.Values.projectRunner.enabled) (.Values.projectRunner.persistence.enabled) }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "{{ include "justflow.fullname" . }}-runner-plugin-pvc"
+  labels:
+    {{- include "justflow.labels" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.projectRunner.persistence.storageClassName | default "default" }}
+  accessModes:
+    - {{ .Values.projectRunner.persistence.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.projectRunner.persistence.size }}
+{{- end }}

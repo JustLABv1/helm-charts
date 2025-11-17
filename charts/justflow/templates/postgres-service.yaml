@@ -1,0 +1,14 @@
+{{- if and (.Values.postgresql.enabled) (eq .Values.postgresql.mode "standalone") }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  type: {{ .Values.postgresql.service.type | default "ClusterIP" }}
+  ports:
+    - port: {{ .Values.postgresql.service.port | default 5432 }}
+  selector:
+    app: postgres
+{{- end }}

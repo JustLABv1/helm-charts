@@ -1,0 +1,84 @@
+{{- if .Values.sharedRunner.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ include "justflow.fullname" . }}-shared-runner"
+  labels:
+    {{- include "justflow.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.sharedRunner.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      {{- include "justflow.sharedRunner.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "justflow.sharedRunner.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: runner
+          image: "{{ .Values.sharedRunner.repository }}:{{ .Values.sharedRunner.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.sharedRunner.pullPolicy }}
+          ports:
+            - name: runner-port
+              containerPort: {{ .Values.sharedRunner.service.target_port }}
+          livenessProbe:
+            httpGet:
+              path: /ready
+              port: {{ .Values.sharedRunner.service.target_port }}
+          startupProbe:
+            httpGet:
+              path: /ready
+              port: {{ .Values.sharedRunner.service.target_port }}
+            failureThreshold: 30
+          {{- if .Values.sharedRunner.configMap.enabled }}
+          volumeMounts:
+            - name: runner-config
+              mountPath: /app/config/config.yaml
+              subPath: config.yaml
+              readOnly: true
+            {{- if .Values.sharedRunner.persistence.enabled }}
+            - name: runner-plugins
+              mountPath: /app/plugins
+            {{- end }}
+          {{- end }}
+      volumes:
+        - name: runner-config
+          configMap:
+            name: {{ include "justflow.fullname" . }}-shared-runner-config
+            items:
+              - key: config.yaml
+                path: config.yaml
+        {{- if .Values.sharedRunner.persistence.enabled }}
+        - name: runner-plugins
+          persistentVolumeClaim:
+            claimName: "{{ include "justflow.fullname" . }}-shared-runner-plugin-pvc"
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

@@ -3,7 +3,7 @@ entries:
   alertflow:
   - apiVersion: v2
     appVersion: v1.4.0
-    created: "2025-11-12T21:52:30.836010039Z"
+    created: "2025-11-17T10:49:29.44373288Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -12,7 +12,7 @@ entries:
       - database
       version: 16.5.0
     description: An AlertFlow Helm chart for Kubernetes
-    digest: 3f658c02546e10d8bf8dd98e6a01680b2b0025fb73d78fae1483b448eee764cd
+    digest: fac9f0f53810b7ec8bcda3917bac1e09f1c544de67f7e96fa26dae3a29660cbc
     name: alertflow
     type: application
     urls:
@@ -21,23 +21,34 @@ entries:
   exflow:
   - apiVersion: v2
     appVersion: v1.5.2
-    created: "2025-11-12T21:52:30.836879558Z"
+    created: "2025-11-17T10:49:29.444434638Z"
     description: An exFlow Helm chart for Kubernetes
-    digest: 352388da35d58648b920fb696d0ab44d1a6fabc687c678dd461e9083ce9a7935
+    digest: ec148f6694b1a8821ddbcf7f1675c3d6841289f0f4d684dcc06554b90685807e
     name: exflow
     type: application
     urls:
     - https://justlabv1.github.io/helm-charts/exflow-1.10.2.tgz
     version: 1.10.2
+  justflow:
+  - apiVersion: v2
+    appVersion: v2.0.0-beta.1
+    created: "2025-11-17T10:49:29.445144552Z"
+    description: A justFlow Helm chart for Kubernetes
+    digest: ddd95edd3e2bb8891b30d68f35abd54a1c9665221d73fa0c210786fc5c442389
+    name: justflow
+    type: application
+    urls:
+    - https://justlabv1.github.io/helm-charts/justflow-1.0.0.tgz
+    version: 1.0.0
   justwms:
   - apiVersion: v2
     appVersion: v1.7.2
-    created: "2025-11-12T21:52:30.83739346Z"
+    created: "2025-11-17T10:49:29.44562089Z"
     description: An JustWMS Helm chart for Kubernetes
-    digest: 00b30c00ea3cb9299874453b55697cacaf75411e943bb5de1afdd0e282a05610
+    digest: f076c63af0928ceaf1dc6ccdcf7c3e813d86bd33370646f2b8d0bdd58e0461e6
     name: justwms
     type: application
     urls:
     - https://justlabv1.github.io/helm-charts/justwms-1.7.0.tgz
     version: 1.7.0
-generated: "2025-11-12T21:52:30.829948634Z"
+generated: "2025-11-17T10:49:29.437120802Z"
