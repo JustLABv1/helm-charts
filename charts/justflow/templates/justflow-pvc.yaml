@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: justflow-data-volume
+  name: justflow-data-volume-claim
   labels:
     {{- include "justflow.labels" . | nindent 4 }}
 spec:
