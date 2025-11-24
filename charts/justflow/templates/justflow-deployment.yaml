@@ -53,7 +53,6 @@ spec:
             httpGet:
               path: /api/v1/health
               port: {{ .Values.justflow.service.ports.backend.port }}
-          {{- if .Values.justflow.configMap.enabled }}
           volumeMounts:
             {{- if .Values.justflow.configMap.enabled }}
             - name: backend-config
@@ -65,7 +64,6 @@ spec:
             - name: justflow-data
               mountPath: /etc/justflow
             {{- end }}
-          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
