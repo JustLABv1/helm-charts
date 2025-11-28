@@ -1,0 +1,16 @@
+{{- if .Values.justflow.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: justflow-data-volume
+  labels:
+    {{- include "justflow.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: {{ .Values.justflow.persistence.size }}
+  storageClassName: {{ .Values.justflow.persistence.storageClassName | default "default" }}
+  hostPath:
+    path: /etc/justflow
+{{- end }}
