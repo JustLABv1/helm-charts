@@ -3,7 +3,7 @@ entries:
   alertflow:
   - apiVersion: v2
     appVersion: v1.4.0
-    created: "2025-11-28T12:46:18.930847877Z"
+    created: "2025-11-28T12:56:48.02940564Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -12,7 +12,7 @@ entries:
       - database
       version: 16.5.0
     description: An AlertFlow Helm chart for Kubernetes
-    digest: 2b89871c972340e81fff0864329055c7ee0b69d0d10b8305b74a5e33da5d8cc7
+    digest: 434720b9355ab8dac033988ddae5208c0cd190e24303f67a2b980b940e7a5ed3
     name: alertflow
     type: application
     urls:
@@ -21,9 +21,9 @@ entries:
   exflow:
   - apiVersion: v2
     appVersion: v1.5.2
-    created: "2025-11-28T12:46:18.932703931Z"
+    created: "2025-11-28T12:56:48.030126522Z"
     description: An exFlow Helm chart for Kubernetes
-    digest: 903afdc18efae779c42201aea1dc534de33d52f48193e9025de5806430320812
+    digest: e80ef7267bea000a805874bae8cd6b3b2e0cb2f3fad63a441eb9887d2db2a37a
     name: exflow
     type: application
     urls:
@@ -32,23 +32,23 @@ entries:
   justflow:
   - apiVersion: v2
     appVersion: v2.0.0-beta.12
-    created: "2025-11-28T12:46:18.934007479Z"
+    created: "2025-11-28T12:56:48.030814507Z"
     description: A justFlow Helm chart for Kubernetes
-    digest: c3fc6ebadcc5f503df43da77bf91266a7c855f9d33571f096a6db47451880062
+    digest: 2793284323d8f089d5dbe94843ccb9e6d54b40a3c34691d4c709b1660698544a
     name: justflow
     type: application
     urls:
-    - https://justlabv1.github.io/helm-charts/justflow-1.0.5.tgz
-    version: 1.0.5
+    - https://justlabv1.github.io/helm-charts/justflow-1.0.6.tgz
+    version: 1.0.6
   justwms:
   - apiVersion: v2
     appVersion: v1.7.2
-    created: "2025-11-28T12:46:18.934894217Z"
+    created: "2025-11-28T12:56:48.031300751Z"
     description: An JustWMS Helm chart for Kubernetes
-    digest: 75b5e148f276f34146789e260b2f792a8ef7c6bb55f86c41609235f9b581dd98
+    digest: bde53d2bbc39b744f3b1b29e182ef38bc03d8c0d18baa6cd1085c2774c0eb7ea
     name: justwms
     type: application
     urls:
     - https://justlabv1.github.io/helm-charts/justwms-1.7.0.tgz
     version: 1.7.0
-generated: "2025-11-28T12:46:18.925424744Z"
+generated: "2025-11-28T12:56:48.021075623Z"
