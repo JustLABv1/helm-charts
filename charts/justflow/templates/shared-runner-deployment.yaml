@@ -34,6 +34,8 @@ spec:
         - name: runner
           image: "{{ .Values.sharedRunner.repository }}:{{ .Values.sharedRunner.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.sharedRunner.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
           ports:
             - name: runner-port
               containerPort: {{ .Values.sharedRunner.service.target_port }}
