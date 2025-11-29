@@ -35,6 +35,8 @@ spec:
         - name: runner
           image: "{{ .Values.projectRunner.repository }}:{{ .Values.projectRunner.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.projectRunner.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
           ports:
             - containerPort: {{ .Values.projectRunner.service.target_port }}
           livenessProbe:
