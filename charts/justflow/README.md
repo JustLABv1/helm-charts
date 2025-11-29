@@ -1,6 +1,6 @@
 # justflow
 
-![Version: 1.0.8](https://img.shields.io/badge/Version-1.0.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0-beta.12](https://img.shields.io/badge/AppVersion-v2.0.0--beta.12-informational?style=flat-square)
+![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0-beta.12](https://img.shields.io/badge/AppVersion-v2.0.0--beta.12-informational?style=flat-square)
 
 A justFlow Helm chart for Kubernetes
 
@@ -52,7 +52,10 @@ A justFlow Helm chart for Kubernetes
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` |  |
-| podSecurityContext | object | `{}` |  |
+| podSecurityContext.fsGroup | int | `2000` |  |
+| podSecurityContext.runAsGroup | int | `3000` |  |
+| podSecurityContext.runAsUser | int | `1000` |  |
+| podSecurityContext.seccompProfile.type | string | `"RuntimeDefault"` |  |
 | postgresql.auth.database | string | `"justflow"` |  |
 | postgresql.auth.password | string | `"justflow"` |  |
 | postgresql.auth.username | string | `"justflow"` |  |
@@ -95,7 +98,9 @@ A justFlow Helm chart for Kubernetes
 | projectRunner.service.type | string | `"ClusterIP"` |  |
 | projectRunner.tag | string | `"latest"` |  |
 | resources.requests | object | `{}` |  |
-| securityContext | object | `{}` |  |
+| securityContext.allowPrivilegeEscalation | bool | `false` |  |
+| securityContext.capabilities.drop[0] | string | `"ALL"` |  |
+| securityContext.readOnlyRootFilesystem | bool | `true` |  |
 | sharedRunner.configMap.data.alertflow.enabled | bool | `false` |  |
 | sharedRunner.configMap.data.api_endpoints.port | int | `8080` |  |
 | sharedRunner.configMap.data.exflow.enabled | bool | `true` |  |
