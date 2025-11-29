@@ -1,0 +1,16 @@
+{{- if and (.Values.projectRunner.enabled) (.Values.projectRunner.persistence.enabled) }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "{{ include "justflow.fullname" . }}-runner-plugin-pv"
+  labels:
+    {{- include "justflow.labels" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.projectRunner.persistence.storageClassName | default "default" }}
+  capacity:
+    storage: {{ .Values.projectRunner.persistence.size }}
+  accessModes:
+    - {{ .Values.projectRunner.persistence.accessMode }}
+  hostPath:
+    path: /data/{{ include "justflow.fullname" . }}-runner-plugin-pv
+{{- end }}
