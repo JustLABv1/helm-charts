@@ -1,0 +1,16 @@
+{{- if .Values.justflow.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: justflow-volume
+  labels:
+    app: justflow
+spec:
+  storageClassName: {{ .Values.justflow.persistence.storageClassName | default "default" }}
+  capacity:
+    storage: {{ .Values.justflow.persistence.size }}
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /data/justflow
+{{- end }}
