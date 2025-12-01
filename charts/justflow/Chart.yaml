@@ -7,12 +7,12 @@ appVersion: "v2.0.0-beta.14"
 icon: https://raw.githubusercontent.com/JustLABv1/helm-charts/main/charts/justflow/logo.svg
 home: https://github.com/JustLABv1/helm-charts
 keywords:
-	- justflow
-	- automation
-	- workflow
-	- runner
+  - justflow
+  - automation
+  - workflow
+  - runner
 sources:
-	- https://github.com/JustLABv1/helm-charts
+  - https://github.com/JustLABv1/helm-charts
 maintainers:
-	- name: JustLAB
-		url: https://justlabv1.github.io/helm-charts
+  - name: JustLAB
+    url: https://justlabv1.github.io/helm-charts
