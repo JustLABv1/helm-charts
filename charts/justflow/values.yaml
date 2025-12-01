@@ -5,6 +5,7 @@ justflow:
   repository: ghcr.io/justlabv1/justflow
   pullPolicy: Always
   tag: ""
+  env: {}
   configMap:
     enabled: false
     data:

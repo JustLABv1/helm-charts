@@ -45,6 +45,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.justflow.repository }}:{{ .Values.justflow.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.justflow.pullPolicy }}
+          {{ - if .Values.justflow.env }}
+          env:
+            {{- toYaml .Values.justflow.env | nindent 12 }}
+          {{- end }}
           livenessProbe:
             httpGet:
               path: /api/v1/health
