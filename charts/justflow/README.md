@@ -4,6 +4,18 @@
 
 A justFlow Helm chart for Kubernetes
 
+**Homepage:** <https://github.com/JustLABv1/helm-charts>
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| JustLAB |  | <https://justlabv1.github.io/helm-charts> |
+
+## Source Code
+
+* <https://github.com/JustLABv1/helm-charts>
+
 ## Values
 
 | Key | Type | Default | Description |
@@ -16,9 +28,6 @@ A justFlow Helm chart for Kubernetes
 | autoscaling.targetMemoryUtilizationPercentage | int | `80` |  |
 | fullnameOverride | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
-| serviceAccount.annotations | object | `{}` |  |
-| serviceAccount.create | bool | `true` |  |
-| serviceAccount.name | string | `""` |  |
 | ingress.annotations."kubernetes.io/ingress.class" | string | `"traefik"` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hosts[0] | string | `"myhost.org"` |  |
@@ -101,14 +110,7 @@ A justFlow Helm chart for Kubernetes
 | projectRunner.service.target_port | int | `8080` |  |
 | projectRunner.service.type | string | `"ClusterIP"` |  |
 | projectRunner.tag | string | `"latest"` |  |
-| projectRunner.resources.requests.cpu | string | `100m` |  |
-| projectRunner.resources.requests.memory | string | `128Mi` |  |
-| projectRunner.resources.limits.cpu | string | `250m` |  |
-| projectRunner.resources.limits.memory | string | `256Mi` |  |
-| resources.requests.cpu | string | `200m` |  |
-| resources.requests.memory | string | `256Mi` |  |
-| resources.limits.cpu | string | `500m` |  |
-| resources.limits.memory | string | `512Mi` |  |
+| resources.requests | object | `{}` |  |
 | securityContext.allowPrivilegeEscalation | bool | `false` |  |
 | securityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | securityContext.readOnlyRootFilesystem | bool | `true` |  |
@@ -139,10 +141,6 @@ A justFlow Helm chart for Kubernetes
 | sharedRunner.service.target_port | int | `8080` |  |
 | sharedRunner.service.type | string | `"ClusterIP"` |  |
 | sharedRunner.tag | string | `"latest"` |  |
-| sharedRunner.resources.requests.cpu | string | `100m` |  |
-| sharedRunner.resources.requests.memory | string | `128Mi` |  |
-| sharedRunner.resources.limits.cpu | string | `250m` |  |
-| sharedRunner.resources.limits.memory | string | `256Mi` |  |
 | tolerations | list | `[]` |  |
 
 ----------------------------------------------
