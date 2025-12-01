@@ -1,6 +1,6 @@
 # justflow
 
-![Version: 1.0.11](https://img.shields.io/badge/Version-1.0.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0-beta.12](https://img.shields.io/badge/AppVersion-v2.0.0--beta.12-informational?style=flat-square)
+![Version: 1.0.12](https://img.shields.io/badge/Version-1.0.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0-beta.14](https://img.shields.io/badge/AppVersion-v2.0.0--beta.14-informational?style=flat-square)
 
 A justFlow Helm chart for Kubernetes
 
@@ -34,6 +34,7 @@ A justFlow Helm chart for Kubernetes
 | justflow.configMap.data.port | int | `8080` |  |
 | justflow.configMap.data.runner.shared_runner_secret | string | `"secret"` |  |
 | justflow.configMap.enabled | bool | `false` |  |
+| justflow.env | object | `{}` |  |
 | justflow.persistence.enabled | bool | `true` |  |
 | justflow.persistence.size | string | `"2Gi"` |  |
 | justflow.persistence.storageClassName | string | `"default"` |  |
