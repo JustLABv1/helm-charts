@@ -3,7 +3,7 @@ entries:
   alertflow:
   - apiVersion: v2
     appVersion: v1.4.0
-    created: "2025-12-01T11:49:40.460873783Z"
+    created: "2025-12-01T11:57:10.362097163Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -12,7 +12,7 @@ entries:
       - database
       version: 16.5.0
     description: An AlertFlow Helm chart for Kubernetes
-    digest: 7ee57cf5eb2515711c8bc6b47ab5389fe6218bf7f54650b3692be0b5e1848548
+    digest: 11b9da92ca63db30cbbbe09ea401b9e24559cc69ced659ca9a52d019b20aa53e
     name: alertflow
     type: application
     urls:
@@ -21,9 +21,9 @@ entries:
   exflow:
   - apiVersion: v2
     appVersion: v1.5.2
-    created: "2025-12-01T11:49:40.461561395Z"
+    created: "2025-12-01T11:57:10.362794756Z"
     description: An exFlow Helm chart for Kubernetes
-    digest: 4add68a46f4f180e469f80f15b0f061f2fb5df9419a980a816e8064be1c8fe26
+    digest: 7e15da031a8a8ca93fa58ea192c01f08f9725689b058cdf626c6b4977b945d8c
     name: exflow
     type: application
     urls:
@@ -32,23 +32,35 @@ entries:
   justflow:
   - apiVersion: v2
     appVersion: v2.0.0-beta.14
-    created: "2025-12-01T11:49:40.462862449Z"
+    created: "2025-12-01T11:57:10.36368507Z"
     description: A justFlow Helm chart for Kubernetes
-    digest: 8d836ef673a3f5a915470f1728476c14fbccec6d99e45bda4e0aa5e3a7f17055
+    digest: dce51a4314924bdcb444788bfe4e4d82e58829770fbef6cbcfc452e70134e7a3
+    home: https://github.com/JustLABv1/helm-charts
+    icon: https://raw.githubusercontent.com/JustLABv1/helm-charts/main/charts/justflow/logo.svg
+    keywords:
+    - justflow
+    - automation
+    - workflow
+    - runner
+    maintainers:
+    - name: JustLAB
+      url: https://justlabv1.github.io/helm-charts
     name: justflow
+    sources:
+    - https://github.com/JustLABv1/helm-charts
     type: application
     urls:
-    - https://justlabv1.github.io/helm-charts/justflow-1.0.12.tgz
-    version: 1.0.12
+    - https://justlabv1.github.io/helm-charts/justflow-1.0.13.tgz
+    version: 1.0.13
   justwms:
   - apiVersion: v2
     appVersion: v1.7.2
-    created: "2025-12-01T11:49:40.463773245Z"
+    created: "2025-12-01T11:57:10.364835077Z"
     description: An JustWMS Helm chart for Kubernetes
-    digest: f82c393a57694311e362a36bf5ccc25d228dfff2a515799bbe8cfa2efac53dc9
+    digest: fcc4408abe17b69dfb8a3607042c54a08878592c4a32994971da70d3def5c3e4
     name: justwms
     type: application
     urls:
     - https://justlabv1.github.io/helm-charts/justwms-1.7.0.tgz
     version: 1.7.0
-generated: "2025-12-01T11:49:40.455350215Z"
+generated: "2025-12-01T11:57:10.356787409Z"

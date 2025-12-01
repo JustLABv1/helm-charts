@@ -1,6 +1,6 @@
 # justflow
 
-![Version: 1.0.11](https://img.shields.io/badge/Version-1.0.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0-beta.12](https://img.shields.io/badge/AppVersion-v2.0.0--beta.12-informational?style=flat-square)
+![Version: 1.0.13](https://img.shields.io/badge/Version-1.0.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0-beta.14](https://img.shields.io/badge/AppVersion-v2.0.0--beta.14-informational?style=flat-square)
 
 A justFlow Helm chart for Kubernetes
 
@@ -16,6 +16,9 @@ A justFlow Helm chart for Kubernetes
 | autoscaling.targetMemoryUtilizationPercentage | int | `80` |  |
 | fullnameOverride | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
+| serviceAccount.annotations | object | `{}` |  |
+| serviceAccount.create | bool | `true` |  |
+| serviceAccount.name | string | `""` |  |
 | ingress.annotations."kubernetes.io/ingress.class" | string | `"traefik"` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hosts[0] | string | `"myhost.org"` |  |
@@ -34,6 +37,7 @@ A justFlow Helm chart for Kubernetes
 | justflow.configMap.data.port | int | `8080` |  |
 | justflow.configMap.data.runner.shared_runner_secret | string | `"secret"` |  |
 | justflow.configMap.enabled | bool | `false` |  |
+| justflow.env | object | `{}` |  |
 | justflow.persistence.enabled | bool | `true` |  |
 | justflow.persistence.size | string | `"2Gi"` |  |
 | justflow.persistence.storageClassName | string | `"default"` |  |
@@ -97,7 +101,14 @@ A justFlow Helm chart for Kubernetes
 | projectRunner.service.target_port | int | `8080` |  |
 | projectRunner.service.type | string | `"ClusterIP"` |  |
 | projectRunner.tag | string | `"latest"` |  |
-| resources.requests | object | `{}` |  |
+| projectRunner.resources.requests.cpu | string | `100m` |  |
+| projectRunner.resources.requests.memory | string | `128Mi` |  |
+| projectRunner.resources.limits.cpu | string | `250m` |  |
+| projectRunner.resources.limits.memory | string | `256Mi` |  |
+| resources.requests.cpu | string | `200m` |  |
+| resources.requests.memory | string | `256Mi` |  |
+| resources.limits.cpu | string | `500m` |  |
+| resources.limits.memory | string | `512Mi` |  |
 | securityContext.allowPrivilegeEscalation | bool | `false` |  |
 | securityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | securityContext.readOnlyRootFilesystem | bool | `true` |  |
@@ -128,6 +139,10 @@ A justFlow Helm chart for Kubernetes
 | sharedRunner.service.target_port | int | `8080` |  |
 | sharedRunner.service.type | string | `"ClusterIP"` |  |
 | sharedRunner.tag | string | `"latest"` |  |
+| sharedRunner.resources.requests.cpu | string | `100m` |  |
+| sharedRunner.resources.requests.memory | string | `128Mi` |  |
+| sharedRunner.resources.limits.cpu | string | `250m` |  |
+| sharedRunner.resources.limits.memory | string | `256Mi` |  |
 | tolerations | list | `[]` |  |
 
 ----------------------------------------------
