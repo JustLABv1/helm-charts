@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: "{{ include "justflow.fullname" . }}-runner-plugin-pv"
+  name: "{{ include "justflow.fullname" . }}-project-runner-plugin-pv"
   labels:
     {{- include "justflow.labels" . | nindent 4 }}
 spec:
@@ -12,5 +12,5 @@ spec:
   accessModes:
     - {{ .Values.projectRunner.persistence.accessMode }}
   hostPath:
-    path: /data/{{ include "justflow.fullname" . }}-runner-plugin-pv
+    path: /data/{{ include "justflow.fullname" . }}-project-runner-plugin-pv
 {{- end }}

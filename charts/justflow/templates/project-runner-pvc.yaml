@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: "{{ include "justflow.fullname" . }}-runner-plugin-pvc"
+  name: "{{ include "justflow.fullname" . }}-project-runner-plugin-pvc"
   labels:
     {{- include "justflow.labels" . | nindent 4 }}
 spec:
