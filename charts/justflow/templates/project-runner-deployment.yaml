@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ include "justflow.fullname" . }}-runner"
+  name: "{{ include "justflow.fullname" . }}-project-runner"
   labels:
     {{- include "justflow.labels" . | nindent 4 }}
 spec:
@@ -22,8 +22,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        app.kubernetes.io/name: "{{ include "justflow.fullname" . }}-runner"
-        app.kubernetes.io/instance: "{{ include "justflow.fullname" . }}-runner"
+        {{- include "justflow.projectRunner.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -59,11 +58,13 @@ spec:
             - name: runner-plugins
               mountPath: /app/plugins
             {{- end }}
+          resources:
+            {{- toYaml .Values.projectRunner.resources | nindent 12 }}
       volumes:
         {{- if .Values.projectRunner.configMap.enabled }}
         - name: runner-config
           configMap:
-            name: {{ include "justflow.fullname" . }}-runner-config
+            name: {{ include "justflow.fullname" . }}-project-runner-config
             items:
               - key: config.yaml
                 path: config.yaml
@@ -71,7 +72,7 @@ spec:
         {{- if .Values.projectRunner.persistence.enabled }}
         - name: runner-plugins
           persistentVolumeClaim:
-            claimName: "{{ include "justflow.fullname" . }}-runner-plugin-pvc"
+            claimName: "{{ include "justflow.fullname" . }}-project-runner-plugin-pvc"
         {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
